@@ -1,0 +1,390 @@
+[gd_scene load_steps=17 format=3 uid="uid://dpkumhjhb4m0d"]
+
+[ext_resource type="Script" path="res://base_table.gd" id="1_q1uqa"]
+[ext_resource type="Script" path="res://EZCam.gd" id="2_drt48"]
+[ext_resource type="FontFile" uid="uid://cp63iu6likq0v" path="res://Fonts/tahoma.ttf" id="3_himda"]
+[ext_resource type="FontFile" uid="uid://dx8bwujyet563" path="res://Fonts/tahomabd.ttf" id="3_tb00s"]
+[ext_resource type="Texture2D" uid="uid://vup5fca2lxft" path="res://UI_Icons/Triangle.png" id="5_mhlek"]
+[ext_resource type="Texture2D" uid="uid://s4vd0vhfucn3" path="res://UI_Icons/Robot.png" id="6_laucx"]
+[ext_resource type="Texture2D" uid="uid://b4ohrhk7g3sgh" path="res://UI_Icons/Disk.png" id="7_fkvnh"]
+
+[sub_resource type="Theme" id="Theme_65h3w"]
+default_font = ExtResource("3_tb00s")
+
+[sub_resource type="Theme" id="Theme_fm07m"]
+default_font = ExtResource("3_himda")
+
+[sub_resource type="Theme" id="Theme_cix83"]
+default_font = ExtResource("3_tb00s")
+
+[sub_resource type="QuadMesh" id="QuadMesh_nxuym"]
+size = Vector2(100, 100)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sba7g"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_u3q1b"]
+data = PackedVector3Array(50, -50, 0, -50, -50, 0, 50, 50, 0, -50, -50, 0, -50, 50, 0, 50, 50, 0)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rfr0h"]
+
+[sub_resource type="Sky" id="Sky_cnmkt"]
+sky_material = SubResource("ProceduralSkyMaterial_rfr0h")
+
+[sub_resource type="Environment" id="Environment_1e8bl"]
+background_mode = 2
+sky = SubResource("Sky_cnmkt")
+
+[node name="BaseTable" type="Node3D"]
+script = ExtResource("1_q1uqa")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.965911, 0)
+script = ExtResource("2_drt48")
+
+[node name="Control" type="Control" parent="Camera3D"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ShapesMenu" type="VBoxContainer" parent="Camera3D/Control"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -204.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_65h3w")
+theme_override_constants/separation = 11
+
+[node name="shapes" type="Label" parent="Camera3D/Control/ShapesMenu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 29
+text = "Shapes Menu"
+
+[node name="Label" type="Label" parent="Camera3D/Control/ShapesMenu"]
+layout_mode = 2
+text = "Selected Shape: "
+
+[node name="ShapeList" type="ItemList" parent="Camera3D/Control/ShapesMenu"]
+layout_mode = 2
+auto_height = true
+item_count = 2
+item_0/text = "ShapeA"
+item_1/text = "ShapeB"
+
+[node name="EditShapeButton" type="Button" parent="Camera3D/Control/ShapesMenu"]
+layout_mode = 2
+text = "Edit Shape"
+
+[node name="DeleteShapeButton" type="Button" parent="Camera3D/Control/ShapesMenu"]
+layout_mode = 2
+text = "DeleteShape"
+
+[node name="ExtrudeShapeButton" type="Button" parent="Camera3D/Control/ShapesMenu"]
+layout_mode = 2
+text = "ExtrudeShape"
+
+[node name="MakeSVG" type="Button" parent="Camera3D/Control/ShapesMenu"]
+layout_mode = 2
+text = "Make SVG"
+
+[node name="MakeGCode" type="Button" parent="Camera3D/Control/ShapesMenu"]
+layout_mode = 2
+text = "Make G Code
+"
+
+[node name="FileMenu" type="VBoxContainer" parent="Camera3D/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -204.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_65h3w")
+theme_override_constants/separation = 11
+
+[node name="Files" type="Label" parent="Camera3D/Control/FileMenu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.545948, 0.934371, 1)
+theme_override_font_sizes/font_size = 29
+text = "Files Menu
+"
+
+[node name="Label" type="Label" parent="Camera3D/Control/FileMenu"]
+layout_mode = 2
+text = "Current File: "
+
+[node name="ShapeList" type="ItemList" parent="Camera3D/Control/FileMenu"]
+layout_mode = 2
+auto_height = true
+
+[node name="OpenFile" type="Button" parent="Camera3D/Control/FileMenu"]
+layout_mode = 2
+text = "Open from computer"
+
+[node name="SaveFile" type="Button" parent="Camera3D/Control/FileMenu"]
+layout_mode = 2
+text = "Save This File"
+
+[node name="NewFile" type="Button" parent="Camera3D/Control/FileMenu"]
+layout_mode = 2
+text = "New File"
+
+[node name="MakeSVG" type="Button" parent="Camera3D/Control/FileMenu"]
+layout_mode = 2
+text = "Make SVG"
+
+[node name="Help" type="Button" parent="Camera3D/Control/FileMenu"]
+layout_mode = 2
+text = "Help
+"
+
+[node name="MachineMenu" type="VBoxContainer" parent="Camera3D/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -204.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = SubResource("Theme_65h3w")
+theme_override_constants/separation = 11
+
+[node name="Files" type="Label" parent="Camera3D/Control/MachineMenu"]
+layout_mode = 2
+theme_override_colors/font_color = Color(4.59649e-06, 0.647145, 0.192969, 1)
+theme_override_font_sizes/font_size = 29
+text = "Machine Menu
+"
+
+[node name="Label" type="Label" parent="Camera3D/Control/MachineMenu"]
+layout_mode = 2
+text = "Current Machine: "
+
+[node name="ComList" type="ItemList" parent="Camera3D/Control/MachineMenu"]
+layout_mode = 2
+auto_height = true
+
+[node name="Connect" type="Button" parent="Camera3D/Control/MachineMenu"]
+layout_mode = 2
+text = "Connect"
+
+[node name="Disconnect" type="Button" parent="Camera3D/Control/MachineMenu"]
+layout_mode = 2
+text = "Disconnect
+"
+
+[node name="NewFile" type="Button" parent="Camera3D/Control/MachineMenu"]
+layout_mode = 2
+text = "update machine settings"
+
+[node name="MakeSVG" type="Button" parent="Camera3D/Control/MachineMenu"]
+layout_mode = 2
+text = "Send G Code to machine"
+
+[node name="Help" type="Button" parent="Camera3D/Control/MachineMenu"]
+layout_mode = 2
+text = "Help
+"
+
+[node name="Settings" type="Control" parent="Camera3D/Control"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
+
+[node name="FileDialog" type="FileDialog" parent="Camera3D/Control/Settings"]
+position = Vector2i(325, 36)
+size = Vector2i(413, 410)
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Camera3D/Control"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 167.0
+grow_vertical = 2
+theme = SubResource("Theme_fm07m")
+
+[node name="Button" type="Button" parent="Camera3D/Control/VBoxContainer2"]
+visible = false
+layout_mode = 2
+text = "MakeLineTool"
+
+[node name="HSeparator" type="HSeparator" parent="Camera3D/Control/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="MakeLineTool" type="Label" parent="Camera3D/Control/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.976471, 0, 0, 1)
+text = "Make Line Tool"
+
+[node name="StartLine" type="Button" parent="Camera3D/Control/VBoxContainer2"]
+layout_mode = 2
+text = "Start Line"
+
+[node name="EndLine" type="Button" parent="Camera3D/Control/VBoxContainer2"]
+layout_mode = 2
+text = "End Line"
+
+[node name="HSeparator2" type="HSeparator" parent="Camera3D/Control/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Camera3D/Control/VBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "Make a Flat Shape"
+
+[node name="ShapeSelect" type="OptionButton" parent="Camera3D/Control/VBoxContainer2"]
+layout_mode = 2
+item_count = 4
+popup/item_0/text = "square"
+popup/item_1/text = "cirlcle"
+popup/item_1/id = 1
+popup/item_2/text = "points"
+popup/item_2/id = 2
+popup/item_3/text = "line"
+popup/item_3/id = 3
+
+[node name="Control" type="Control" parent="Camera3D/Control/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 130)
+layout_mode = 2
+
+[node name="Radius" type="Label" parent="Camera3D/Control/VBoxContainer2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 30.0
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+text = "Radius"
+
+[node name="RadiusSlider" type="HSlider" parent="Camera3D/Control/VBoxContainer2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 30.0
+
+[node name="Segments" type="Label" parent="Camera3D/Control/VBoxContainer2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+text = "Segments"
+
+[node name="SegmentSlider" type="HSlider" parent="Camera3D/Control/VBoxContainer2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 103.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = 3.0
+max_value = 120.0
+value = 60.0
+allow_greater = true
+tick_count = 4
+ticks_on_borders = true
+
+[node name="StartingPositionSelect" type="OptionButton" parent="Camera3D/Control/VBoxContainer2"]
+visible = false
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "Center"
+popup/item_1/text = "Top Left Corner"
+popup/item_1/id = 1
+popup/item_2/text = "Bot Left Corner"
+popup/item_2/id = 2
+
+[node name="MakeShape" type="Button" parent="Camera3D/Control/VBoxContainer2"]
+layout_mode = 2
+text = "MakeShape"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="Camera3D/Control"]
+title = "Link the first and last"
+position = Vector2i(355, 310)
+size = Vector2i(345, 80)
+ok_button_text = "yes"
+dialog_close_on_escape = false
+cancel_button_text = "no"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera3D/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.5
+offset_right = 20.5
+offset_bottom = 40.0
+grow_horizontal = 2
+theme = SubResource("Theme_cix83")
+
+[node name="MachineMenu" type="Button" parent="Camera3D/Control/HBoxContainer"]
+layout_mode = 2
+text = "Machine Menu"
+icon = ExtResource("6_laucx")
+
+[node name="ShapeMenu" type="Button" parent="Camera3D/Control/HBoxContainer"]
+layout_mode = 2
+text = "Shape Menu"
+icon = ExtResource("5_mhlek")
+
+[node name="FileMenu" type="Button" parent="Camera3D/Control/HBoxContainer"]
+layout_mode = 2
+text = "File Menu"
+icon = ExtResource("7_fkvnh")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("QuadMesh_nxuym")
+surface_material_override/0 = SubResource("ShaderMaterial_sba7g")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_u3q1b")
+
+[node name="Line_drawer" type="MeshInstance3D" parent="."]
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1e8bl")
+
+[connection signal="file_selected" from="Camera3D/Control/Settings/FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="Camera3D/Control/VBoxContainer2/StartLine" to="." method="_on_start_line_pressed"]
+[connection signal="pressed" from="Camera3D/Control/VBoxContainer2/EndLine" to="." method="_on_end_line_pressed"]
+[connection signal="changed" from="Camera3D/Control/VBoxContainer2/Control/RadiusSlider" to="." method="_on_radius_slider_changed"]
+[connection signal="drag_ended" from="Camera3D/Control/VBoxContainer2/Control/RadiusSlider" to="." method="_on_radius_slider_drag_ended"]
+[connection signal="changed" from="Camera3D/Control/VBoxContainer2/Control/SegmentSlider" to="." method="_on_segment_slider_changed"]
+[connection signal="drag_ended" from="Camera3D/Control/VBoxContainer2/Control/SegmentSlider" to="." method="_on_segment_slider_drag_ended"]
+[connection signal="pressed" from="Camera3D/Control/VBoxContainer2/MakeShape" to="." method="_on_make_shape_pressed"]
+[connection signal="canceled" from="Camera3D/Control/ConfirmationDialog" to="." method="_on_confirmation_dialog_canceled"]
+[connection signal="confirmed" from="Camera3D/Control/ConfirmationDialog" to="." method="_on_confirmation_dialog_confirmed"]
+[connection signal="pressed" from="Camera3D/Control/HBoxContainer/MachineMenu" to="." method="_on_machine_menu_pressed"]
+[connection signal="pressed" from="Camera3D/Control/HBoxContainer/ShapeMenu" to="." method="_on_shape_menu_pressed"]
+[connection signal="pressed" from="Camera3D/Control/HBoxContainer/FileMenu" to="." method="_on_file_menu_pressed"]
