@@ -15,6 +15,11 @@ run/main_scene="res://base_table.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SvgCreator="*res://SVGHandling/SVGCreator.gd"
+SvgToGCode="*res://GCodeHandling/SVG_To_GCode.gd"
+
 [dotnet]
 
 project/assembly_name="VectorThing"

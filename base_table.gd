@@ -101,25 +101,26 @@ func create_shape(Name:String, M3d:MeshInstance3D, IM:ImmediateMesh, Mat:Standar
 		"Material":Mat, 
 		"TriangleArray":TriangleArray,
 		"Notes":Notes}
-
+@onready var  marking_pin:PackedScene=load("res://3D_Objects/pin.tscn") 
 func make_marking_shpere(shpere_location)-> void:
-	var shpere_mesh = MeshInstance3D.new()
-	var sphere = SphereMesh.new()
-	sphere.radius=0.25
-	sphere.height=0.5
-	shpere_mesh.mesh = sphere
-	var material = ORMMaterial3D.new()
-	material.emission_enabled=true
-	material.albedo_color=Color(1.0,0,0)
-	material.emission=Color(1.0,0,0)
-	material.emission_energy_multiplier=20.0
-	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	var marker=marking_pin.instantiate()
+	#var sphere = SphereMesh.new()
+	#sphere.radius=0.25
+	#sphere.height=0.5
+	#shpere_mesh.mesh = sphere
+	#var material = ORMMaterial3D.new()
+	#material.emission_enabled=true
+	#material.albedo_color=Color(1.0,0,0)
+#	material.emission=Color(1.0,0,0)
+	#material.emission_energy_multiplier=20.0
+	#material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 
-	sphere.surface_set_material(0,material)
+#	sphere.surface_set_material(0,material)
 	#surface_material_override= use_shader#material
-	add_child(shpere_mesh)
+	add_child(marker)
 	var offset=Vector3(0,2,0)
-	shpere_mesh.position=shpere_location+offset
+	marker.display_self(shpere_location)
+	marker.position=shpere_location+offset
 
 func _on_start_line_pressed() -> void:
 	line_active=true
@@ -319,3 +320,12 @@ func _on_radius_slider_drag_ended(value_changed: bool) -> void:
 func _on_segment_slider_drag_ended(value_changed: bool) -> void:
 	$Camera3D/Control/VBoxContainer2/Control/Segments.text= "Segments: "+str($Camera3D/Control/VBoxContainer2/Control/SegmentSlider.value)
 	temp_circle_segments=$Camera3D/Control/VBoxContainer2/Control/SegmentSlider.value
+
+
+func _on_make_svg_pressed() -> void:
+	print("Here is shape dict: ", shape_dict)
+	SvgCreator.save_svg(shape_dict['test']['Pionts'], "res://Data/output.svg")
+
+
+func _on_make_g_code_pressed() -> void:
+	SvgToGCode.svg_to_gcode("res://Data/output.svg","res://Data/secondaryOutput.gcode",1000)

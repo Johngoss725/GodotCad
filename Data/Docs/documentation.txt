@@ -1,0 +1,72 @@
+
+Project Aim:
+
+	The aim of the project is to control a cnc machine with godot. 
+functionality I want to achieve is lasering and simple path drilling at first. 
+
+About me:
+	My name is johnathon Goss I am a CNC operator and programming enthusiast. 
+I have a youtube channle here. https://www.youtube.com/@averagegodotenjoyer
+I go by the Average godot enjoyer. 
+
+Introduction and where we are at so far
+I used chat gpt a bunch so Ill link to the discussion from the robot overloards
+https://chatgpt.com/share/67560522-6210-8002-a0da-f36bfa3cc376
+
+Main highlights how can i take an svg and turn it into gcode. 
+Essientially svgs are just 'paths' or can be converted to 'paths' wich will allow me to place xy coordinates. 
+all i need for g code is to tell the machine where to be ( x and y ) and what to do (z axis drill or laser)
+
+I tried hooking up an arduino to leds and placing grbl example onto the arduino but the leds didnt light up as i thought they would to simulate the motors or it didnt work 
+I am buying a laser etching machine to try it on. as tempting as it is to try on expensive equipment i cant do it.
+I also cant justify buying a shit cnc of amazon for this purpose so im buying the parts and building a cnc of my own my brother has a cnc machine already so I will cut the wood frame using 5/8 project boanem17
+
+I have ordered 
+	3x nema 17 stepper motor 
+	3x tb66004a 9-42v stepper motor driver 
+About 68 dollars for 2 three packs of each plus fast shipping on amazon
+i have an arduino already
+
+I will be biulding the cnc machine shortly we willl see what happens next week my stuff comes in the mail on tuesday 
+
+
+I have the coordinates of the shapes and what the shape is supposed to be.
+
+we have no width attribute for the lines but that does not matter right now.!
+
+I just want to take the coordinates from the godot scene and make a simple svg from them... 
+lines only 
+
+I need to choose a top point for the svg and plot from there
+
+
+This is a collection of thoughts and other dumb stuff. 
+
+
+This is a 'Shape'
+func create_shape(Name:String, M3d:MeshInstance3D, IM:ImmediateMesh, Mat:StandardMaterial3D, Pionts:Array, TriangleArray:Array, Notes:String ):
+	shape_dict[Name] = {
+		"Pionts":Pionts,
+		"Meshinstance3d":M3d, 
+		"ImmediateMesh":IM,
+		"Material":Mat, 
+		"TriangleArray":TriangleArray,
+		"Notes":Notes}
+A dictionary entry that holds the shapes points and other information about it it makes it easy to edit from anywhere in the program once created.
+At least thats how it works in my head. 
+
+12/8/2024 
+so i have proof of concept basically 
+i can take a svg and make g code 
+i can make svgs from plotted points in godot.
+I have yet to understand how to interface with the machine. 
+Everything is very basic but it shows proof of concept. 
+
+ 
+
+
+
+
+We have the points of each 'shape' in the item metadata of the list item in the rightside menu. 
+meaning we can save shapes individually or all together at this point. 
+maybe layering svg by ' shape' would be an effective technique...

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dpkumhjhb4m0d"]
+[gd_scene load_steps=18 format=3 uid="uid://dpkumhjhb4m0d"]
 
 [ext_resource type="Script" path="res://base_table.gd" id="1_q1uqa"]
 [ext_resource type="Script" path="res://EZCam.gd" id="2_drt48"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://vup5fca2lxft" path="res://UI_Icons/Triangle.png" id="5_mhlek"]
 [ext_resource type="Texture2D" uid="uid://s4vd0vhfucn3" path="res://UI_Icons/Robot.png" id="6_laucx"]
 [ext_resource type="Texture2D" uid="uid://b4ohrhk7g3sgh" path="res://UI_Icons/Disk.png" id="7_fkvnh"]
+[ext_resource type="PackedScene" uid="uid://b1th14eln23mb" path="res://3D_Objects/3DMarkdes.tscn" id="8_g2xle"]
 
 [sub_resource type="Theme" id="Theme_65h3w"]
 default_font = ExtResource("3_tb00s")
@@ -38,7 +39,7 @@ sky = SubResource("Sky_cnmkt")
 script = ExtResource("1_q1uqa")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.965911, 0)
+transform = Transform3D(1, 0, 0, 0, 0.422618, 0.906308, 0, -0.906308, 0.422618, 46.196, 55.7524, 90.561)
 script = ExtResource("2_drt48")
 
 [node name="Control" type="Control" parent="Camera3D"]
@@ -74,9 +75,6 @@ text = "Selected Shape: "
 [node name="ShapeList" type="ItemList" parent="Camera3D/Control/ShapesMenu"]
 layout_mode = 2
 auto_height = true
-item_count = 2
-item_0/text = "ShapeA"
-item_1/text = "ShapeB"
 
 [node name="EditShapeButton" type="Button" parent="Camera3D/Control/ShapesMenu"]
 layout_mode = 2
@@ -358,11 +356,12 @@ text = "File Menu"
 icon = ExtResource("7_fkvnh")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 50, 0, 50)
 mesh = SubResource("QuadMesh_nxuym")
 surface_material_override/0 = SubResource("ShaderMaterial_sba7g")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 50)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -375,6 +374,19 @@ shape = SubResource("ConcavePolygonShape3D_u3q1b")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1e8bl")
 
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3016, 0, 17.3706)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
+[node name="Node3D2" parent="." instance=ExtResource("8_g2xle")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 99.9874)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.852772, 0.157852, -0.497858, 0.304194, 0.624751, 0.719133, 0.424554, -0.764702, 0.484752, 0, 4.20981, 100)
+
+[connection signal="pressed" from="Camera3D/Control/ShapesMenu/MakeSVG" to="." method="_on_make_svg_pressed"]
+[connection signal="pressed" from="Camera3D/Control/ShapesMenu/MakeGCode" to="." method="_on_make_g_code_pressed"]
 [connection signal="file_selected" from="Camera3D/Control/Settings/FileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="pressed" from="Camera3D/Control/VBoxContainer2/StartLine" to="." method="_on_start_line_pressed"]
 [connection signal="pressed" from="Camera3D/Control/VBoxContainer2/EndLine" to="." method="_on_end_line_pressed"]

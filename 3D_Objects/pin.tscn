@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dm34olfk8aueo"]
+
+[ext_resource type="Script" path="res://3D_Objects/pin.gd" id="1_hh5ir"]
+[ext_resource type="Material" uid="uid://i5corqoxj1kb" path="res://Materials/White_color.material" id="1_qh0rv"]
+[ext_resource type="FontFile" uid="uid://dx8bwujyet563" path="res://Fonts/tahomabd.ttf" id="2_3etu7"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_milgh"]
+material = ExtResource("1_qh0rv")
+top_radius = 0.18
+bottom_radius = 0.01
+height = 3.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_njfrc"]
+material = ExtResource("1_qh0rv")
+top_radius = 0.35
+bottom_radius = 0.35
+height = 0.2
+
+[node name="Pin" type="Node3D"]
+script = ExtResource("1_hh5ir")
+
+[node name="PinNeedle" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_milgh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+mesh = SubResource("CylinderMesh_njfrc")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.93135, 0)
+billboard = 1
+text = "(0,0,0)"
+font = ExtResource("2_3etu7")
+font_size = 122
